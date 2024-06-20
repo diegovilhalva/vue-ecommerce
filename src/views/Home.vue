@@ -1,8 +1,9 @@
 <template>
   <v-app>
+    <NavBar/>
     <v-main>
       <v-container>
-        git
+      
       </v-container>
     </v-main>
   </v-app>
@@ -10,5 +11,6 @@
 
 <script setup>
 
+import NavBar from '@/components/NavBar.vue';
 </script>
 
