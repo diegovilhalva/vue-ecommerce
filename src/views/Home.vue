@@ -69,7 +69,7 @@
                     </v-card-item>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-img cols="12" sm="6" height="250" class="mx-4" src="image/13.jpg"></v-img>
+                    <v-img cols="12" sm="6" height="250" class="mx-4" src="/image/13.jpg"></v-img>
                   </v-col>
                 </v-row>
               </v-card>
@@ -97,7 +97,7 @@
                       <v-img
                         height="250"
                         class="mx-4"
-                        src="image/14.jpg"
+                        src="/image/14.jpg"
                       ></v-img>
                     </v-col>
                   </v-row>
@@ -126,7 +126,7 @@
                       <v-img
                         height="250"
                         class="mx-4"
-                        src="image/15.jpg"
+                        src="/image/15.jpg"
                       ></v-img>
                     </v-col>
                   </v-row>
