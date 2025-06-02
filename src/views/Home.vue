@@ -2,50 +2,93 @@
   <v-app>
     <NavBar />
     <v-main>
-      <v-container class="pa-0 pa-sm-3">
-        <!-- Carrossel otimizado para responsividade -->
-        <v-carousel hide-delimiters height="auto" :show-arrows="$vuetify.display.mdAndUp">
-          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" cover>
-            <div class="carousel-content d-flex flex-column justify-center align-center fill-height pa-4">
-              <h2 class="text-white text-h4 text-sm-h3 text-center mb-2">{{ item.title }}</h2>
-              <p class="text-white text-center mb-6 text-body-1 text-sm-h6 max-width-600">{{ item.text }}</p>
-              <v-btn color="primary" size="large" class="mt-sm-4">Comprar</v-btn>
-            </div>
-          </v-carousel-item>
-        </v-carousel>
+      <v-container>
+        <!-- Carrossel Responsivo -->
+        <v-row>
+          <v-col cols="12">
+            <v-carousel height="60vh" :continuous="true" cycle>
+              <v-carousel-item 
+                v-for="(item, i) in items" 
+                :key="i" 
+                :src="item.src"
+                cover
+              >
+                <v-row class="fill-height" align="center" justify="center">
+                  <v-col cols="12" sm="6" class="text-center pa-6">
+                    <h2 class="text-h4 text-md-h3 text-white mb-4">{{ item.title }}</h2>
+                    <p class="text-body-1 text-white mb-6">{{ item.text }}</p>
+                    <v-btn class="mt-2" color="primary">Comprar</v-btn>
+                  </v-col>
+                </v-row>
+              </v-carousel-item>
+            </v-carousel>
+          </v-col>
+        </v-row>
 
-        <!-- Seções de produtos com header responsivo -->
-        <section-header title="Produtos populares" class="mt-10" />
-        <Popular class="mt-4" />
+        <!-- Produtos Populares -->
+        <v-row>
+          <v-col cols="12">
+            <v-toolbar color="transparent" class="mb-6 mb-md-8">
+              <v-toolbar-title>Produtos populares</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn icon="mdi mdi-chevron-left"></v-btn>
+              <v-btn icon="mdi mdi-chevron-right"></v-btn>
+            </v-toolbar>
+            <Popular />
+          </v-col>
+        </v-row>
 
-        <section-header title="Novidades" class="mt-10" />
-        <Featured class="mt-4" />
+        <!-- Novidades -->
+        <v-row>
+          <v-col cols="12">
+            <v-toolbar color="transparent" class="mb-6 mb-md-8">
+              <v-toolbar-title>Novidades</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn icon="mdi mdi-chevron-left"></v-btn>
+              <v-btn icon="mdi mdi-chevron-right"></v-btn>
+            </v-toolbar>
+            <Featured />
+          </v-col>
+        </v-row>
 
-        <Client class="my-10" />
+        <!-- Clientes -->
+        <v-row>
+          <v-col cols="12">
+            <Client />
+          </v-col>
+        </v-row>
 
-        <!-- Cards otimizados para responsividade -->
-        <v-row class="my-10" justify="center">
-          <v-col v-for="(card, i) in cards" :key="i" cols="12" sm="6" md="4" lg="3">
-            <v-card class="h-100 d-flex flex-column" :color="card.color">
-              <v-row no-gutters class="flex-column-reverse flex-sm-row flex-grow-1">
-                <v-col cols="12" sm="6" class="d-flex flex-column pa-4">
-                  <v-card-title class="text-center text-break">{{ card.title }}</v-card-title>
-                  <v-card-text class="text-center flex-grow-1">
-                    {{ card.description }}
-                  </v-card-text>
-                  <div class="text-center mt-auto">
-                    <v-btn color="black">Comprar</v-btn>
-                  </div>
+        <!-- Produtos Destaques -->
+        <v-row class="mt-8 mt-md-12">
+          <v-col cols="12" sm="6" md="4" v-for="(product, i) in products" :key="i">
+            <v-card class="mx-auto my-4" max-width="374">
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-card-item class="pt-6">
+                    <v-card-title class="text-center text-subtitle-1 font-weight-bold">
+                      {{ product.title }}
+                    </v-card-title>
+                    <v-card-text class="text-center">
+                      {{ product.description }}
+                      <v-btn color="black" block class="mt-4" dark>Comprar</v-btn>
+                    </v-card-text>
+                  </v-card-item>
                 </v-col>
-                <v-col cols="12" sm="6" class="d-flex align-center justify-center">
-                  <v-img :src="card.image" height="250" contain />
+                <v-col cols="12" sm="6">
+                  <v-img 
+                    height="200" 
+                    class="mx-auto"
+                    :src="product.image"
+                    contain
+                  ></v-img>
                 </v-col>
               </v-row>
             </v-card>
           </v-col>
         </v-row>
       </v-container>
-      <Footer />
+
+      <Footer class="mt-12" />
     </v-main>
   </v-app>
 </template>
@@ -56,76 +99,79 @@ import Popular from '../components/Popular.vue';
 import Featured from '../components/Featured.vue';
 import Client from '../components/Client.vue';
 import Footer from '@/components/Footer.vue';
-import { ref, computed } from 'vue';
-import { useDisplay } from 'vuetify';
+</script>
 
-const { mdAndUp } = useDisplay();
-
-const items = ref([
-  {
-    src: "7.jpg",
-    title: "Surface Studio",
-    text: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page."
+<script>
+export default {
+  data() {
+    return {
+      items: [
+        {
+          src: "7.jpg",
+          title: "Surface Studio",
+          text: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès ",
+        },
+        {
+          src: "1.jpg",
+          title: "Surface Studio",
+          text: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès ",
+        },
+        {
+          src: "2.jpg",
+          title: "Surface Studio",
+          text: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès ",
+        },
+        {
+          src: "3.jpg",
+          title: "Surface Studio",
+          text: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès ",
+        },
+        {
+          src: "4.jpg",
+          title: "Surface Studio",
+          text: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès ",
+        },
+        {
+          src: "5.jpg",
+          title: "Surface Studio",
+          text: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès ",
+        },
+      ],
+      products: [
+        {
+          title: "Purificador de ar",
+          description: "Small plates, salads & sandwiches",
+          image: "/image/13.jpg"
+        },
+        {
+          title: "Asus Rog GT51CH‑AE004T Pc",
+          description: "Small plates, salads & sandwiches",
+          image: "/image/14.jpg"
+        },
+        {
+          title: "CM 10 S2 Kule Hoparlör",
+          description: "Small plates, salads & sandwiches",
+          image: "/image/15.jpg"
+        }
+      ]
+    };
   },
-  // ... outros items
-]);
-
-const cards = ref([
-  {
-    title: "Purificador de ar",
-    description: "Small plates, salads & sandwiches",
-    image: "/image/13.jpg",
-    color: null
-  },
-  {
-    title: "Asus Rog GT51CH‑AE004T Pc",
-    description: "Small plates, salads & sandwiches",
-    image: "/image/14.jpg",
-    color: "red"
-  },
-  {
-    title: "CM 10 S2 Kule Hoparlör",
-    description: "Small plates, salads & sandwiches",
-    image: "/image/15.jpg",
-    color: null
-  }
-]);
-
-// Componente reutilizável para headers
-const SectionHeader = {
-  props: ['title'],
-  template: `
-    <v-row align="center" class="mx-0 mt-10 mb-4">
-      <v-col cols="auto">
-        <h2 class="text-h5 text-sm-h4">{{ title }}</h2>
-      </v-col>
-      <v-spacer />
-      <v-col cols="auto" v-if="mdAndUp">
-        <v-btn icon="mdi mdi-chevron-left" variant="text" />
-        <v-btn icon="mdi mdi-chevron-right" variant="text" />
-      </v-col>
-    </v-row>
-  `,
-  setup() {
-    return { mdAndUp }
-  }
 };
 </script>
 
 <style scoped>
-.carousel-content {
-  background: rgba(0, 0, 0, 0.4);
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-}
-
-.max-width-600 {
-  max-width: 600px;
-}
-
+/* Estilos responsivos para telas menores */
 @media (max-width: 600px) {
-  .carousel-content {
-    padding-top: 80px !important;
-    padding-bottom: 80px !important;
+  .text-h4 {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-body-1 {
+    font-size: 0.875rem !important;
+  }
+  
+  .v-carousel-item__content {
+    padding: 16px;
   }
 }
 </style>
